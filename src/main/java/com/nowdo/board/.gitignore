@@ -1,0 +1,15 @@
+# build
+/target/
+/build/
+
+# IDE
+.idea/
+*.iml
+
+# env
+.env
+application.yml
+application-local.yml
+
+# OS
+.DS_Store
