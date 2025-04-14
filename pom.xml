@@ -20,7 +20,7 @@
 
 	<!-- ✅ properties 只寫一次 -->
 	<properties>
-		<java.version>24</java.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
@@ -102,6 +102,7 @@
 	</repositories>
 
 	<build>
+		<finalName>nowdo-backend</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
