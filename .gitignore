@@ -21,6 +21,7 @@ HELP.md
 
 # env
 .env
+.env.*
 application-local.yml
 application.properties
 
