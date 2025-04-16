@@ -9,6 +9,6 @@ public interface CardDAO {
     List<CardEntity> getCardByListId(int listId);
     void createNewCard(String cardTitle, int listId);
     int getNextCardOrder(int listId);
-    void updateCardById(CardEntity theCard);
+//    void updateCardById(CardEntity theCard);
     void deleteCardById(int theId);
 }

@@ -76,6 +76,28 @@ public class BoardDAOJpaImpl implements BoardDAO {
     }
 
     @Override
+    public void updateBoard(int boardId, String boardTitle, int pictureId) {
+        // 查找 Board
+        BoardEntity board = entityManager.find(BoardEntity.class, boardId);
+        if (board == null) {
+            throw new RuntimeException("找不到指定的 Board ID：" + boardId);
+        }
+
+        // 查找 Picture（可選）
+        PictureEntity picture = entityManager.find(PictureEntity.class, pictureId);
+        if (picture == null) {
+            throw new RuntimeException("找不到指定的 Picture ID：" + pictureId);
+        }
+
+        // 更新欄位
+        board.setBoardTitle(boardTitle);
+        board.setPicture(picture);
+
+        // 合併更新
+        entityManager.merge(board);
+    }
+
+    @Override
     public void deleteBoardById(int theId) {
         BoardEntity board = entityManager.find(BoardEntity.class, theId);
         if (board != null) {

@@ -7,6 +7,9 @@ public class PictureDTO {
     private String imageUrl;
     private String remark;
 
+    public PictureDTO(){
+    }
+
     public PictureDTO(PictureEntity entity) {
         this.id = entity.getId();
         this.imageUrl = entity.getImageUrl();

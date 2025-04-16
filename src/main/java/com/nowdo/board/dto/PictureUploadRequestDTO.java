@@ -4,6 +4,9 @@ public class PictureUploadRequestDTO {
     private String imageUrl;
     private String remark;
 
+    public PictureUploadRequestDTO(){
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }

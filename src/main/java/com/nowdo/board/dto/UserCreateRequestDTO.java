@@ -7,6 +7,9 @@ public class UserCreateRequestDTO {
     private String provider;
     private String providerId;
 
+    public UserCreateRequestDTO(){
+    }
+
     public UserCreateRequestDTO(String username, String email, String password, String provider, String providerId) {
         this.username = username;
         this.email = email;

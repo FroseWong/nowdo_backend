@@ -25,10 +25,12 @@ public class PasswordResetTokenDAOJpaImpl implements PasswordResetTokenDAO{
     @Override
     public Optional<PasswordResetTokenEntity> findByToken(String token) {
         String jpql = "SELECT t FROM PasswordResetTokenEntity t WHERE t.token = :token";
-        return entityManager.createQuery(jpql, PasswordResetTokenEntity.class)
+          Optional<PasswordResetTokenEntity> result= entityManager.createQuery(jpql, PasswordResetTokenEntity.class)
                 .setParameter("token", token)
                 .getResultStream()
                 .findFirst();
+        System.out.println("result" + result);
+        return result;
     }
 
     @Override

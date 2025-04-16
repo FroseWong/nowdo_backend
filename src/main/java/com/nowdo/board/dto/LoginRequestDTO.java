@@ -5,6 +5,9 @@ public class LoginRequestDTO {
     private String password;
     private String provider;
 
+    public LoginRequestDTO(){
+    }
+
     public LoginRequestDTO(String email, String password, String provider) {
         this.email = email;
         this.password = password;

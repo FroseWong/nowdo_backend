@@ -6,6 +6,9 @@ public class CardUpdateRequestDTO {
     private String cardDesc;
     private Boolean isCompleted;
 
+    public CardUpdateRequestDTO(){
+    }
+
     public CardUpdateRequestDTO(int id, String cardTitle, String cardDesc, Boolean isCompleted) {
         this.id = id;
         this.cardTitle = cardTitle;

@@ -4,6 +4,9 @@ public class CardCreateRequestDTO {
     private String cardTitle;
     private int listId;
 
+    public CardCreateRequestDTO(){
+    }
+
     public CardCreateRequestDTO(String cardTitle, int listId) {
         this.cardTitle = cardTitle;
         this.listId = listId;

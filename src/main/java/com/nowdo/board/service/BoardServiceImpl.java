@@ -1,9 +1,6 @@
 package com.nowdo.board.service;
 
-import com.nowdo.board.dao.BoardDAO;
-import com.nowdo.board.dao.CardDAO;
-import com.nowdo.board.dao.ListDAO;
-import com.nowdo.board.dao.UserDAO;
+import com.nowdo.board.dao.*;
 import com.nowdo.board.dto.BoardDetailDTO;
 import com.nowdo.board.dto.CardDTO;
 import com.nowdo.board.dto.ListDTO;
@@ -28,15 +25,17 @@ public class BoardServiceImpl implements BoardService {
     private JwtUtil jwtUtil;
     private ListDAO listDAO;
     private CardDAO cardDAO;
+    private PictureDAO pictureDAO;
     private AuthService authService;
     private EntityManager entityManager;
 
     @Autowired
-    public BoardServiceImpl(BoardDAO theBoardDAO, UserDAO theUserDAO, ListDAO theListDAO, CardDAO theCardDAO, JwtUtil theJwtUtil, AuthService theAuthService, EntityManager theEntityManager) {
+    public BoardServiceImpl(BoardDAO theBoardDAO, UserDAO theUserDAO, ListDAO theListDAO, CardDAO theCardDAO, PictureDAO thePictureDAO, JwtUtil theJwtUtil, AuthService theAuthService, EntityManager theEntityManager) {
         boardDAO = theBoardDAO;
         userDAO = theUserDAO;
         listDAO = theListDAO;
         cardDAO = theCardDAO;
+        pictureDAO = thePictureDAO;
         jwtUtil = theJwtUtil;
         authService = theAuthService;
         entityManager = theEntityManager;
@@ -83,7 +82,27 @@ public class BoardServiceImpl implements BoardService {
         }).collect(Collectors.toList());
 
 
-        return new BoardDetailDTO(board.getId(), board.getBoardTitle(), board.getPicture().getImageUrl(), listDTOs);
+        return new BoardDetailDTO(board.getId(), board.getBoardTitle(),board.getPicture().getId() ,board.getPicture().getImageUrl(), listDTOs);
+    }
+
+    @Transactional
+    @Override
+    public void updateBoardByToken(String authHeader, int boardId, String boardTitle, int pictureId, String newPictureUrl, String remark) {
+        UserEntity user = authService.getUserFromToken(authHeader);
+
+        BoardEntity board = boardDAO.findById(boardId);
+        if (board == null || board.getUser().getId() != user.getId()) {
+            throw new RuntimeException("此看板不存在或不屬於該使用者");
+        }
+
+        int finalPictureId = pictureId;
+
+        // ✅ 有新圖片要上傳
+        if (pictureId == 0 && newPictureUrl != null && !newPictureUrl.isEmpty()) {
+            finalPictureId = pictureDAO.uploadPicture(newPictureUrl, user.getId(), remark);
+        }
+
+        boardDAO.updateBoard(boardId, boardTitle, finalPictureId);
     }
 
     @Transactional

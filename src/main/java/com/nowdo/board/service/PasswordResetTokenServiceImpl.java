@@ -35,8 +35,26 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
 
     @Override
     public Optional<PasswordResetTokenEntity> getValidToken(String token) {
-        return tokenDAO.findByToken(token)
-                .filter(t -> t.getExpiryDate().isAfter(LocalDateTime.now()));
+//        return tokenDAO.findByToken(token)
+//                .filter(t -> t.getExpiryDate().isAfter(LocalDateTime.now()));
+        Optional<PasswordResetTokenEntity> tokenOpt = tokenDAO.findByToken(token);
+
+        if (tokenOpt.isPresent()) {
+            PasswordResetTokenEntity t = tokenOpt.get();
+            System.out.println("🔍 查到的 token: " + t.getToken());
+            System.out.println("🔐 過期時間: " + t.getExpiryDate());
+            System.out.println("🕒 現在時間: " + LocalDateTime.now());
+
+            if (t.getExpiryDate().isAfter(LocalDateTime.now())) {
+                return Optional.of(t);
+            } else {
+                System.out.println("⚠️ Token 已過期");
+            }
+        } else {
+            System.out.println("❌ 找不到 token: " + token);
+        }
+
+        return Optional.empty();
     }
 
 

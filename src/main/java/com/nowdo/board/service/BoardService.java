@@ -10,5 +10,6 @@ public interface BoardService {
     List<BoardEntity> getBoardListByToken(String authHeader);
     int createBoardByToken(String authHeader, String boardTitle, int pictureId);
     BoardDetailDTO getFullBoardByToken(String authHeader, int boardId);
+    void updateBoardByToken(String authHeader, int boardId, String boardTitle, int pictureId, String newPictureUrl, String remark);
     void deleteBoardById(String authHeader, int boardId);
 }

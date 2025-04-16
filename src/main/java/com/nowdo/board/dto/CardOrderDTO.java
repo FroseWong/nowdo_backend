@@ -5,6 +5,9 @@ public class CardOrderDTO {
     private int listId;
     private int order;
 
+    public CardOrderDTO(){
+    }
+
     public CardOrderDTO(int id, int listId, int order) {
         this.id = id;
         this.listId = listId;

@@ -7,6 +7,9 @@ public class ListDTO {
     private String listTitle;
     private List<CardDTO> cards;
 
+    public ListDTO(){
+    }
+
     public ListDTO(int id, String listTitle, List<CardDTO> cards) {
         this.id = id;
         this.listTitle = listTitle;

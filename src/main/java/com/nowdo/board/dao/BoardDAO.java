@@ -9,5 +9,6 @@ public interface BoardDAO {
     List<BoardEntity> getBoardListById(int theId);
     int createNewBoard(String boardTitle, int userId, int pictureId);
     void updatePictureToDefaultByPictureId(int pictureId);
+    void updateBoard(int boardId, String boardTitle, int pictureId);
     void deleteBoardById(int theId);
 }

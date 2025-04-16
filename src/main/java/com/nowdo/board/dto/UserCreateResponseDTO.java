@@ -7,6 +7,9 @@ public class UserCreateResponseDTO {
     private String provider;
     private String providerId;
 
+    public UserCreateResponseDTO(){
+    }
+
     public UserCreateResponseDTO(int id, String username, String email, String provider, String providerId) {
         this.id = id;
         this.username = username;

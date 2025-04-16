@@ -4,6 +4,9 @@ public class LoginResponseDTO {
     private String token;
     private UserInfoDTO user;
 
+    public LoginResponseDTO(){
+    }
+
     public LoginResponseDTO(String token, UserInfoDTO user) {
         this.token = token;
         this.user = user;

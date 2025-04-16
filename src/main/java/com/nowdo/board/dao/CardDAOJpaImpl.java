@@ -61,10 +61,10 @@ public class CardDAOJpaImpl implements CardDAO {
                 .getSingleResult();
     }
 
-    @Override
-    public void updateCardById(CardEntity theCard) {
-        entityManager.merge(theCard);
-    }
+//    @Override
+//    public void updateCardById(CardEntity theCard) {
+//        entityManager.merge(theCard);
+//    }
 
 
     @Override

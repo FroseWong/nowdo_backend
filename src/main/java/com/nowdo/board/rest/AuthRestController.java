@@ -58,15 +58,18 @@ public class AuthRestController {
         String provider = "local";
 
         if (!userService.existsByEmailAndProvider(email, provider)) {
-            return ResponseEntity.status(404).body("找不到此 Email");
+            return ResponseEntity.status(404).body( Map.of(
+                    "success", false,
+                    "message", "找不到此Email"
+            ));
         }
 
         String token = UUID.randomUUID().toString();
         PasswordResetTokenEntity resetToken = new PasswordResetTokenEntity();
         resetToken.setEmail(email);
         resetToken.setToken(token);
-        resetToken.setExpiryDate(LocalDateTime.now().plusSeconds(1));
-//        resetToken.setExpiryDate(LocalDateTime.now().plusHours(1));
+//        resetToken.setExpiryDate(LocalDateTime.now().plusSeconds(1));
+        resetToken.setExpiryDate(LocalDateTime.now().plusHours(1));
 
         passwordResetTokenService.save(resetToken);
 
