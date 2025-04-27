@@ -43,7 +43,7 @@ public class ListDAOJpaImpl implements ListDAO {
 
     @Override
     public void createNewList(String listTitle, int boardId) {
-        // 查找 UserEntity（注意這裡 user 必須存在）
+        // 查找 UserEntity
         BoardEntity board = entityManager.find(BoardEntity.class, boardId);
         if (board == null) {
             throw new RuntimeException("找不到指定的boardId：" + boardId);

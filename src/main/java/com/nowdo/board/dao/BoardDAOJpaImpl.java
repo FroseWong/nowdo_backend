@@ -36,7 +36,6 @@ public class BoardDAOJpaImpl implements BoardDAO {
 
     @Override
     public int createNewBoard(String boardTitle, int userId, int pictureId) {
-        // 查找 UserEntity（注意這裡 user 必須存在）
         UserEntity user = entityManager.find(UserEntity.class, userId);
         if (user == null) {
             throw new RuntimeException("找不到指定的使用者 ID：" + userId);
@@ -83,7 +82,7 @@ public class BoardDAOJpaImpl implements BoardDAO {
             throw new RuntimeException("找不到指定的 Board ID：" + boardId);
         }
 
-        // 查找 Picture（可選）
+        // 查找 Picture
         PictureEntity picture = entityManager.find(PictureEntity.class, pictureId);
         if (picture == null) {
             throw new RuntimeException("找不到指定的 Picture ID：" + pictureId);

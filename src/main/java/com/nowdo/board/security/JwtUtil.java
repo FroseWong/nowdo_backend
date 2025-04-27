@@ -31,13 +31,6 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token) {
-//        return Jwts.parserBuilder()
-//                .setSigningKey(key)
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody()
-//                .getSubject();
-
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -58,7 +51,7 @@ public class JwtUtil {
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
-                .get("provider", String.class); // ⬅️ 讀取 payload 中的 provider 欄位
+                .get("provider", String.class); // 讀取 payload 中的 provider 欄位
     }
 
     public boolean validateToken(String token) {

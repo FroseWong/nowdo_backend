@@ -36,7 +36,7 @@ public class PictureDAOJpaImpl implements PictureDAO {
 
     @Override
     public int uploadPicture(String imageUrl, int userId, String remark) {
-        // 查找 UserEntity（注意這裡 user 必須存在）
+        // 查找 UserEntity
         UserEntity user = entityManager.find(UserEntity.class, userId);
         if (user == null) {
             throw new RuntimeException("找不到指定的使用者 ID：" + userId);

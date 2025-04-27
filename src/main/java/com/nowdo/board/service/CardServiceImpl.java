@@ -114,13 +114,12 @@ public class CardServiceImpl implements CardService {
         UserEntity user = authService.getUserFromToken(authHeader);
 
 
-        // 取得 list
+        // 取得 card
         CardEntity card = cardDAO.findById(cardId);
         if (card == null) {
             throw new RuntimeException("找不到指定的 Card");
         }
 
-        // 驗證卡片所屬的 Board 是否為該使用者擁有
         ListEntity list = card.getList();
         if (list == null || list.getBoard() == null) {
             throw new RuntimeException("資料異常：卡片未綁定至看板");

@@ -35,7 +35,7 @@ public class CardDAOJpaImpl implements CardDAO {
 
     @Override
     public void createNewCard(String cardTitle, int listId) {
-        // 查找 CardEntity（注意這裡 card 必須存在）
+        // 查找 CardEntity
         ListEntity list = entityManager.find(ListEntity.class, listId);
         if (list == null) {
             throw new RuntimeException("找不到指定的listId：" + listId);

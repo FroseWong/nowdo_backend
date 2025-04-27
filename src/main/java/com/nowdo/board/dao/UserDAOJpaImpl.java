@@ -109,30 +109,21 @@ public class UserDAOJpaImpl implements UserDAO {
                 .setParameter("remark", decodePassword)
                 .executeUpdate();
 
-        System.out.println("🧪 email：" + email);
-        System.out.println("🧪 provider：" + provider);
-        System.out.println("🧪 newPassword：" + newPassword);
         System.out.println("密碼更新筆數: " + updated);
     }
 
     @Override
     public UserEntity updateUsernameByEmailAndProvider(String email, String provider, String username) {
-        String jpql = "UPDATE UserEntity u SET u.username = :username WHERE u.email = :email AND u.provider = :provider";
-        entityManager.createQuery(jpql)
-                .setParameter("email", email)
-                .setParameter("provider", provider)
-                .setParameter("username", username)
-                .executeUpdate();
+        String jpql = "SELECT u FROM UserEntity u WHERE u.email = :email AND u.provider = :provider";
 
-        entityManager.clear(); // ⬅️ 加這行清快取
-
-        // 再查一次更新後的 user
-        String selectJpql = "SELECT u FROM UserEntity u WHERE u.email = :email AND u.provider = :provider";
-
-        return entityManager.createQuery(selectJpql, UserEntity.class)
+        UserEntity user = entityManager.createQuery(jpql, UserEntity.class)
                 .setParameter("email", email)
                 .setParameter("provider", provider)
                 .getSingleResult();
+
+        user.setUsername(username);
+
+        return user;
 
     }
 

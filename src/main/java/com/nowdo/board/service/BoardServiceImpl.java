@@ -60,6 +60,7 @@ public class BoardServiceImpl implements BoardService {
         return boardDAO.createNewBoard(boardTitle, user.getId(), pictureId);
     }
 
+    @Transactional
     @Override
     public BoardDetailDTO getFullBoardByToken(String authHeader, int boardId) {
         UserEntity user = authService.getUserFromToken(authHeader);
@@ -97,7 +98,7 @@ public class BoardServiceImpl implements BoardService {
 
         int finalPictureId = pictureId;
 
-        // ✅ 有新圖片要上傳
+        // 有新圖片要上傳
         if (pictureId == 0 && newPictureUrl != null && !newPictureUrl.isEmpty()) {
             finalPictureId = pictureDAO.uploadPicture(newPictureUrl, user.getId(), remark);
         }
@@ -117,9 +118,9 @@ public class BoardServiceImpl implements BoardService {
             throw new RuntimeException("找不到指定的 Board");
         }
 
-        // 檢查 list 所屬的 board 是不是這個使用者的
+        // 檢查 board 所屬的 user 是不是這個使用者的
         if (board.getUser().getId() != user.getId()) {
-            throw new RuntimeException("無權限刪除此 List");
+            throw new RuntimeException("無權限刪除此 Board");
         }
 
         // 執行刪除流程

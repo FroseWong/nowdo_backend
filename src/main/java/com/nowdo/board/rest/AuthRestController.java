@@ -68,7 +68,6 @@ public class AuthRestController {
         PasswordResetTokenEntity resetToken = new PasswordResetTokenEntity();
         resetToken.setEmail(email);
         resetToken.setToken(token);
-//        resetToken.setExpiryDate(LocalDateTime.now().plusSeconds(1));
         resetToken.setExpiryDate(LocalDateTime.now().plusHours(1));
 
         passwordResetTokenService.save(resetToken);

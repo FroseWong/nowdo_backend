@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleIllegalArgument(IllegalArgumentException ex) {
         Map<String, String> errorBody = new HashMap<>();
         errorBody.put("code", "ILLEGAL_ARGUMENT");
-        errorBody.put("message", ex.getMessage()); // 👈 前端會拿這個顯示
+        errorBody.put("message", ex.getMessage()); // 前端會拿這個顯示
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
@@ -33,6 +33,14 @@ public class GlobalExceptionHandler {
         errorBody.put("code", "RUNTIME_ERROR");
         errorBody.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleException(Exception ex) {
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("code", "INTERNAL_SERVER_ERROR");
+        errorBody.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     }
 
 }

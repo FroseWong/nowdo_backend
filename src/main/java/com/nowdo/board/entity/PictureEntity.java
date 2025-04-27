@@ -35,7 +35,7 @@ public class PictureEntity {
 
     }
 
-    public PictureEntity(String imageUrl, int userId, String remark) {
+    public PictureEntity(String imageUrl, String remark) {
         this.imageUrl = imageUrl;
         this.remark = remark;
     }

@@ -33,17 +33,8 @@ public class PictureServiceImpl implements PictureService {
     @Transactional
     @Override
     public List<PictureEntity> getPictureListByToken(String authHeader) {
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new RuntimeException("缺少或無效的授權資訊");
-        }
 
-        String token = authHeader.substring(7); // 去除 "Bearer "
-
-        String email = jwtUtil.extractEmail(token);
-        String provider = jwtUtil.extractProvider(token);
-
-        UserEntity user = userDAO.findUserByEmailAndProvider(email, provider);
-
+        UserEntity user = authService.getUserFromToken(authHeader);
         if (user == null) {
             throw new RuntimeException("找不到使用者");
         }
@@ -63,11 +54,11 @@ public class PictureServiceImpl implements PictureService {
         UserEntity user = authService.getUserFromToken(authHeader);
 
         PictureEntity picture = pictureDAO.findById(pictureId);
-        if(picture == null) {
+        if (picture == null) {
             throw new RuntimeException("找不到該圖片");
         }
 
-        if(picture.getUser().getId() != user.getId()) {
+        if (picture.getUser().getId() != user.getId()) {
             throw new RuntimeException("無權限刪除此圖片");
         }
 

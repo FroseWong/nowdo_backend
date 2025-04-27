@@ -20,7 +20,7 @@ public class BoardEntity {
     @JoinColumn(name = "user_id", nullable = false) // 外鍵欄位 user_id
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "picture_id", nullable = false)
     private PictureEntity picture;
 
