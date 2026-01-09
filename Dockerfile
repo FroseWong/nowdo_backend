@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # ----------- RUN STAGE -------------
-FROM openjdk:17-alpine
+FROM eclipse-temurin:17-jre-alpine
 COPY --from=build /app/target/nowdo-backend.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
